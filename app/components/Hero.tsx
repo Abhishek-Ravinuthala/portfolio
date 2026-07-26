@@ -1,23 +1,27 @@
-import Background from "./Background";
-import Moon from "./Moon";
-import Stars from "./Stars";
+import Ascent from "./Ascent";
 
 export default function Hero() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden text-white">
-      <Background />
-        <Stars />
-        <Moon  />
-
-      <div className="relative z-10 text-center">
-        <h1 className="text-6xl font-bold tracking-tight">
-          Abhishek
+      <div className="relative z-10 text-center px-6">
+        <h1 className="font-serif-display text-5xl md:text-7xl tracking-tight">
+          Abhishek Ravinuthala
         </h1>
 
-        <p className="mt-5 text-lg text-zinc-400">
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <span className="h-px w-8 bg-zinc-500/50" />
+          <p className="text-xs md:text-sm tracking-[0.3em] text-zinc-400 uppercase">
+            Software Engineer
+          </p>
+          <span className="h-px w-8 bg-zinc-500/50" />
+        </div>
+
+        <p className="mt-6 text-base md:text-lg text-zinc-300">
           Building systems worth climbing.
         </p>
       </div>
+
+      <Ascent />
     </main>
   );
 }

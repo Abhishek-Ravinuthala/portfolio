@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abhishek Ravinuthala — Portfolio
+
+Personal portfolio site. Built with Next.js (App Router), React, TypeScript, and Tailwind CSS, with a few custom bits of canvas work and interaction sprinkled in.
+
+## Highlights
+
+- **Pixel portrait** — a canvas effect that samples a photo into a grid of retro pixel blocks, animates them into place, and reacts to the mouse/touch (repel + spring back).
+- **Tilt project cards** — 3D hover tilt with a cursor-tracked glare, built with Framer Motion.
+- **Scroll reveals** — sections fade/slide in as they enter the viewport.
+- **A hidden Konami code easter egg** — try `↑ ↑ ↓ ↓ ← → ← → B A` anywhere on the page.
+
+## Stack
+
+- [Next.js](https://nextjs.org) 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS v4
+- Framer Motion
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  components/       UI components (hero, sections, portrait effect, etc.)
+  globals.css        Theme tokens + base styles
+  layout.tsx          Root layout, fonts
+  page.tsx             Page composition
+public/                Static assets (images)
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on [Vercel](https://vercel.com).

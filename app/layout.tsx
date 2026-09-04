@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { NTR } from "next/font/google";
+import { Inter, Rajdhani } from "next/font/google";
 import PageBackground from "./components/PageBackground";
 import KonamiEasterEgg from "./components/KonamiEasterEgg";
 import "./globals.css";
 
-const ntr = NTR({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: "400",
+});
+
+const rajdhani = Rajdhani({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ntr.variable} h-full antialiased`}
+      className={`${inter.variable} ${rajdhani.variable} h-full antialiased`}
     >
       <body className="relative min-h-full text-slate-lightest">
         <PageBackground />

@@ -49,7 +49,7 @@ export default function ProjectCard({
         style={{ background: glareBackground }}
       />
       <div style={{ transform: "translateZ(20px)" }}>
-        <h3 className="text-2xl font-semibold text-slate-lightest">{title}</h3>
+        <h3 className="font-display text-2xl font-bold text-slate-lightest">{title}</h3>
         <p className="mt-4 text-sm leading-7 text-slate-light">{description}</p>
       </div>
     </motion.article>

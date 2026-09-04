@@ -3,7 +3,7 @@ export default function TopNav() {
     <header className="pointer-events-none absolute inset-x-0 top-0 z-30 px-6 py-5 md:px-12">
       <div className="mx-auto flex max-w-6xl items-center justify-between text-sm text-slate-light opacity-90">
         <div className="pointer-events-auto flex items-center gap-4 text-xs uppercase tracking-[0.1em] text-slate-light">
-          <span className="text-mint">AR</span>
+          <span className="font-display text-mint">AR</span>
           <span className="h-px w-6 bg-navy-lightest" />
           <span>Software Engineer</span>
         </div>

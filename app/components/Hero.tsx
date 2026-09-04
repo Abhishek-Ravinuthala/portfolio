@@ -1,12 +1,12 @@
-import AsciiPortrait from "./AsciiPortrait";
+import PixelPortrait from "./PixelPortrait";
 
 export default function Hero() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden text-white">
       <div className="relative z-10 flex flex-col items-center text-center px-6">
-        <AsciiPortrait src="/portrait-sticker-2.webp" />
+        <PixelPortrait src="/portrait-sticker-2.webp" />
 
-        <h1 className="mt-4 text-5xl md:text-7xl font-semibold tracking-tight text-slate-lightest">
+        <h1 className="font-display mt-4 text-5xl md:text-7xl font-semibold tracking-tight text-slate-lightest">
           Abhishek Ravinuthala
         </h1>
 

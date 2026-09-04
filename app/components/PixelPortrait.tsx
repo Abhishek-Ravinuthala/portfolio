@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type RawParticle = { x: number; y: number; char: string; alpha: number };
+type RawParticle = { x: number; y: number; r: number; g: number; b: number; alpha: number };
 
 type Particle = {
   x: number;
@@ -11,15 +11,19 @@ type Particle = {
   targetY: number;
   vx: number;
   vy: number;
-  char: string;
+  color: string;
   baseAlpha: number;
   currentAlpha: number;
   delay: number;
   shimmer: number;
 };
 
-const CHARS = " .:-=+*#%@".split("");
 const imageCache: Record<number, RawParticle[]> = {};
+const PALETTE_STEP = 22;
+
+function quantize(channel: number) {
+  return Math.min(255, Math.round(channel / PALETTE_STEP) * PALETTE_STEP);
+}
 
 function calculateSize(width: number) {
   if (width <= 480) return Math.min(280, width - 32);
@@ -35,7 +39,7 @@ function createParticles(raw: RawParticle[]): Particle[] {
     targetY: p.y,
     vx: 0,
     vy: 0,
-    char: p.char,
+    color: `${p.r}, ${p.g}, ${p.b}`,
     baseAlpha: p.alpha,
     currentAlpha: 0,
     delay: Math.random() * 0.4,
@@ -63,23 +67,21 @@ function sampleImage(img: HTMLImageElement, targetSize: number): RawParticle[] {
 
   const { data } = ctx.getImageData(0, 0, targetSize, targetSize);
   const isMobileSize = targetSize <= 280;
-  const fontSize = isMobileSize ? 5 : 7;
-  const colGap = fontSize * 0.7;
-  const rowGap = fontSize * 1.1;
+  const cell = isMobileSize ? 6 : 8;
 
   const raw: RawParticle[] = [];
-  for (let y = 0; y < targetSize; y += rowGap) {
-    for (let x = 0; x < targetSize; x += colGap) {
+  for (let y = 0; y < targetSize; y += cell) {
+    for (let x = 0; x < targetSize; x += cell) {
       const i = (Math.floor(y) * targetSize + Math.floor(x)) * 4;
       const a = data[i + 3];
       if (a > 128) {
-        const brightness = (data[i] + data[i + 1] + data[i + 2]) / (3 * 255);
-        const charIndex = Math.floor(brightness * (CHARS.length - 1));
         raw.push({
           x: Number(x.toFixed(1)),
           y: Number(y.toFixed(1)),
-          char: CHARS[charIndex],
-          alpha: Number((0.4 + brightness * 0.6).toFixed(2)),
+          r: quantize(data[i]),
+          g: quantize(data[i + 1]),
+          b: quantize(data[i + 2]),
+          alpha: 1,
         });
       }
     }
@@ -87,7 +89,7 @@ function sampleImage(img: HTMLImageElement, targetSize: number): RawParticle[] {
   return raw;
 }
 
-export default function AsciiPortrait({ src }: { src: string }) {
+export default function PixelPortrait({ src }: { src: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
   const mouseTargetRef = useRef({ x: -1000, y: -1000 });
@@ -135,7 +137,9 @@ export default function AsciiPortrait({ src }: { src: string }) {
 
     let animationId: number;
     const isMobileSize = size <= 280;
-    const fontSize = isMobileSize ? 5 : 7;
+    const cell = isMobileSize ? 6 : 8;
+    const block = cell * 0.88;
+    const half = block / 2;
 
     const draw = () => {
       animationId = requestAnimationFrame(draw);
@@ -150,10 +154,6 @@ export default function AsciiPortrait({ src }: { src: string }) {
       mouse.x += (target.x - mouse.x) * 0.15;
       mouse.y += (target.y - mouse.y) * 0.15;
 
-      ctx.font = `${fontSize}px monospace`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
       for (const p of particles) {
         const t = elapsed - p.delay;
         if (t < 0) continue;
@@ -161,7 +161,7 @@ export default function AsciiPortrait({ src }: { src: string }) {
         const fadeProgress = Math.min(t / 1.5, 1);
         const easedFade = 1 - Math.pow(1 - fadeProgress, 2);
         const isActive = mouse.active || t < 3.0;
-        const shimmer = isActive ? Math.sin(elapsed * 2 + p.shimmer) * 0.1 : 0;
+        const shimmer = isActive ? Math.sin(elapsed * 2 + p.shimmer) * 0.06 : 0;
         p.currentAlpha = Math.max(0, p.baseAlpha * easedFade + shimmer);
 
         const moveProgress = Math.min(t / 2.5, 1);
@@ -204,8 +204,8 @@ export default function AsciiPortrait({ src }: { src: string }) {
         p.x += p.vx;
         p.y += p.vy;
 
-        ctx.fillStyle = `rgba(100, 255, 218, ${p.currentAlpha})`;
-        ctx.fillText(p.char, p.x, p.y);
+        ctx.fillStyle = `rgba(${p.color}, ${p.currentAlpha})`;
+        ctx.fillRect(p.x - half, p.y - half, block, block);
       }
     };
 
@@ -246,7 +246,7 @@ export default function AsciiPortrait({ src }: { src: string }) {
   return (
     <canvas
       ref={canvasRef}
-      style={{ width: size, height: size, cursor: "crosshair", touchAction: "none" }}
+      style={{ width: size, height: size, cursor: "crosshair", touchAction: "none", imageRendering: "pixelated" }}
     />
   );
 }

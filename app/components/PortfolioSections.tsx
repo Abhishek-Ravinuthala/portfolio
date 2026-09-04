@@ -1,4 +1,6 @@
+import AboutPhoto from "./AboutPhoto";
 import ProjectCard from "./ProjectCard";
+import Reveal from "./Reveal";
 
 const projects = [
   {
@@ -46,34 +48,43 @@ export default function PortfolioSections() {
     <section className="text-white">
       <section id="about" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.1em] text-mint">About</p>
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
-            Currently@JPMorgan Chase.
-          </h2>
-          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-light md:text-lg">
-            I work primarily with Spring and AWS on production systems, so I&apos;ve
-            gotten used to late-night pages and shipping a fix fast to keep
-            customer impact low.
-          </p>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-light md:text-lg">
-            Outside of work, I&apos;m probably in the gym, deep in a game, or catching
-            up on an anime backlog I swore I&apos;d finish months ago.
-          </p>
+          <Reveal>
+            <p className="text-sm uppercase tracking-[0.1em] text-mint">About</p>
+            <div className="mt-6 flex flex-col gap-8 md:flex-row md:items-start">
+              <div className="md:flex-1">
+                <h2 className="font-display text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
+                  Currently@JPMorgan Chase.
+                </h2>
+                <p className="mt-6 text-base leading-8 text-slate-light md:text-lg">
+                  I work primarily with Spring and AWS on production systems, so I&apos;ve
+                  gotten used to jumping on production incidents and shipping a fix
+                  fast to keep customer impact low.
+                </p>
+                <p className="mt-4 text-base leading-8 text-slate-light md:text-lg">
+                  Outside of work, I&apos;m probably in the gym, deep in a game, or catching
+                  up on an anime backlog I swore I&apos;d finish months ago.
+                </p>
+              </div>
+              <AboutPhoto />
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section id="work" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <div>
+          <Reveal>
             <p className="text-sm uppercase tracking-[0.1em] text-mint">Work</p>
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
+            <h2 className="font-display mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
               Projects
             </h2>
-          </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} title={project.title} description={project.description} />
+            {projects.map((project, i) => (
+              <Reveal key={project.title} delay={i * 0.12}>
+                <ProjectCard title={project.title} description={project.description} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -81,10 +92,11 @@ export default function PortfolioSections() {
 
       <section id="contact" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
+          <Reveal>
           <p className="text-sm uppercase tracking-[0.1em] text-mint">Contact</p>
           <div className="mt-6 grid gap-8 md:grid-cols-[1.5fr_1fr] md:items-center">
             <div>
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
+              <h2 className="font-display text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
                 Got something in mind? Let&apos;s talk.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-light md:text-lg">
@@ -150,6 +162,7 @@ export default function PortfolioSections() {
               </p>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
     </section>

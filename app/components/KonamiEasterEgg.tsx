@@ -35,7 +35,7 @@ export default function KonamiEasterEgg() {
   useEffect(() => {
     console.log(
       `%cPsst... try the Konami code: ${CODE_HINT}`,
-      "color:#64ffda; font-size:14px;"
+      "color:#e0798a; font-size:14px;"
     );
 
     let buffer: string[] = [];
@@ -91,9 +91,9 @@ export default function KonamiEasterEgg() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -16, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 22 }}
-            className="absolute left-1/2 top-10 -translate-x-1/2 rounded-2xl border border-mint/40 bg-navy-dark/95 px-6 py-4 text-center shadow-[0_20px_80px_-30px_rgba(100,255,218,0.5)]"
+            className="absolute left-1/2 top-10 -translate-x-1/2 rounded-2xl border border-pink/40 bg-navy-dark/95 px-6 py-4 text-center shadow-[0_20px_80px_-30px_rgba(224,121,138,0.5)]"
           >
-            <p className="text-xs uppercase tracking-[0.1em] text-mint">
+            <p className="text-xs uppercase tracking-[0.1em] text-pink">
               Achievement Unlocked
             </p>
             <p className="mt-2 text-lg font-semibold text-slate-lightest">
@@ -107,7 +107,7 @@ export default function KonamiEasterEgg() {
       </AnimatePresence>
 
       <div className="group pointer-events-auto absolute bottom-5 right-5 flex items-center gap-2">
-        <span className="pointer-events-none whitespace-nowrap rounded-full border border-mint/30 bg-navy-dark/95 px-3 py-1.5 text-xs text-slate-light opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <span className="pointer-events-none whitespace-nowrap rounded-full border border-pink/30 bg-navy-dark/95 px-3 py-1.5 text-xs text-slate-light opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           try {CODE_HINT}
         </span>
         <span className="flex h-9 w-9 cursor-default items-center justify-center rounded-full border border-navy-lightest bg-navy-light/60 text-base opacity-40 transition-opacity duration-200 hover:opacity-100">

@@ -11,11 +11,11 @@ export default function Hero() {
         </h1>
 
         <div className="mt-6 flex items-center justify-center gap-4">
-          <span className="h-px w-8 bg-mint/40" />
-          <p className="text-xs md:text-sm tracking-[0.1em] text-mint uppercase">
+          <span className="h-px w-8 bg-pink/40" />
+          <p className="text-xs md:text-sm tracking-[0.1em] text-pink uppercase">
             Software Engineer
           </p>
-          <span className="h-px w-8 bg-mint/40" />
+          <span className="h-px w-8 bg-pink/40" />
         </div>
 
         <p className="mt-6 max-w-md text-base md:text-lg text-slate-light">

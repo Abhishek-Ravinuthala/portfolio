@@ -108,6 +108,8 @@ export default function PixelPortrait({ src }: { src: string }) {
 
   useEffect(() => {
     setReady(false);
+    let cancelled = false;
+
     if (imageCache[size]) {
       particlesRef.current = createParticles(imageCache[size]);
       setReady(true);
@@ -118,11 +120,16 @@ export default function PixelPortrait({ src }: { src: string }) {
     const img = new Image();
     img.src = src;
     img.onload = () => {
+      if (cancelled) return;
       const raw = sampleImage(img, size);
       imageCache[size] = raw;
       particlesRef.current = createParticles(raw);
       setReady(true);
       startTimeRef.current = performance.now();
+    };
+
+    return () => {
+      cancelled = true;
     };
   }, [size, src]);
 

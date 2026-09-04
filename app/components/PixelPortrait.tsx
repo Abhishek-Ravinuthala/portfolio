@@ -133,7 +133,7 @@ export default function PixelPortrait({ src }: { src: string }) {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = size * dpr;
     canvas.height = size * dpr;
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     let animationId: number;
     const isMobileSize = size <= 280;

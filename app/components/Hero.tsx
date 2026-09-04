@@ -12,7 +12,7 @@ export default function Hero() {
 
         <div className="mt-6 flex items-center justify-center gap-4">
           <span className="h-px w-8 bg-mint/40" />
-          <p className="text-xs md:text-sm tracking-[0.3em] text-mint uppercase">
+          <p className="text-xs md:text-sm tracking-[0.1em] text-mint uppercase">
             Software Engineer
           </p>
           <span className="h-px w-8 bg-mint/40" />

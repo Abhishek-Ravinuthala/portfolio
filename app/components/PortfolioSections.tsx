@@ -44,7 +44,7 @@ export default function PortfolioSections() {
     <section className="text-white">
       <section id="about" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.35em] text-mint">About</p>
+          <p className="text-sm uppercase tracking-[0.1em] text-mint">About</p>
           <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
             Currently@JPMorgan Chase.
           </h2>
@@ -64,7 +64,7 @@ export default function PortfolioSections() {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col gap-4 md:items-center md:flex-row md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-mint">Work</p>
+              <p className="text-sm uppercase tracking-[0.1em] text-mint">Work</p>
               <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
                 Selected projects
               </h2>
@@ -91,7 +91,7 @@ export default function PortfolioSections() {
 
       <section id="contact" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.35em] text-mint">Contact</p>
+          <p className="text-sm uppercase tracking-[0.1em] text-mint">Contact</p>
           <div className="mt-6 grid gap-8 md:grid-cols-[1.5fr_1fr] md:items-center">
             <div>
               <h2 className="text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
@@ -115,7 +115,7 @@ export default function PortfolioSections() {
                     </svg>
                   </span>
                   <span>
-                    <p className="text-sm uppercase tracking-[0.35em] text-slate">Email</p>
+                    <p className="text-sm uppercase tracking-[0.1em] text-slate">Email</p>
 
                   </span>
                 </a>
@@ -132,7 +132,7 @@ export default function PortfolioSections() {
                     </svg>
                   </span>
                   <span>
-                    <p className="text-sm uppercase tracking-[0.35em] text-slate">LinkedIn</p>
+                    <p className="text-sm uppercase tracking-[0.1em] text-slate">LinkedIn</p>
 
                   </span>
                 </a>
@@ -149,7 +149,7 @@ export default function PortfolioSections() {
                     </svg>
                   </span>
                   <span>
-                    <p className="text-sm uppercase tracking-[0.35em] text-slate">GitHub</p>
+                    <p className="text-sm uppercase tracking-[0.1em] text-slate">GitHub</p>
 
                   </span>
                 </a>

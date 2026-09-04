@@ -4,7 +4,9 @@ export default function Hero() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden text-white">
       <div className="relative z-10 flex flex-col items-center text-center px-6">
-        <PixelPortrait src="/portrait-sticker-2.webp" />
+        <PixelPortrait
+          sources={["/portrait-sticker-2.webp", "/portrait-sticker-3.webp", "/portrait-sticker-4.png"]}
+        />
 
         <h1 className="font-display mt-4 text-5xl md:text-7xl font-semibold tracking-tight text-slate-lightest">
           Abhishek Ravinuthala

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type RawParticle = { x: number; y: number; r: number; g: number; b: number; alpha: number };
 
@@ -18,7 +19,7 @@ type Particle = {
   shimmer: number;
 };
 
-const imageCache: Record<number, RawParticle[]> = {};
+const imageCache: Record<string, RawParticle[]> = {};
 const PALETTE_STEP = 22;
 
 function quantize(channel: number) {
@@ -89,7 +90,7 @@ function sampleImage(img: HTMLImageElement, targetSize: number): RawParticle[] {
   return raw;
 }
 
-export default function PixelPortrait({ src }: { src: string }) {
+export default function PixelPortrait({ sources }: { sources: string[] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
   const mouseTargetRef = useRef({ x: -1000, y: -1000 });
@@ -98,6 +99,9 @@ export default function PixelPortrait({ src }: { src: string }) {
 
   const [size, setSize] = useState(460);
   const [ready, setReady] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [showHint, setShowHint] = useState(false);
+  const src = sources[index % sources.length];
 
   useEffect(() => {
     const onResize = () => setSize(calculateSize(window.innerWidth));
@@ -107,11 +111,22 @@ export default function PixelPortrait({ src }: { src: string }) {
   }, []);
 
   useEffect(() => {
+    setShowHint(true);
+    const timer = setTimeout(() => setShowHint(false), 3200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  function dismissHint() {
+    setShowHint(false);
+  }
+
+  useEffect(() => {
     setReady(false);
     let cancelled = false;
+    const cacheKey = `${src}::${size}`;
 
-    if (imageCache[size]) {
-      particlesRef.current = createParticles(imageCache[size]);
+    if (imageCache[cacheKey]) {
+      particlesRef.current = createParticles(imageCache[cacheKey]);
       setReady(true);
       startTimeRef.current = performance.now();
       return;
@@ -122,7 +137,7 @@ export default function PixelPortrait({ src }: { src: string }) {
     img.onload = () => {
       if (cancelled) return;
       const raw = sampleImage(img, size);
-      imageCache[size] = raw;
+      imageCache[cacheKey] = raw;
       particlesRef.current = createParticles(raw);
       setReady(true);
       startTimeRef.current = performance.now();
@@ -251,9 +266,37 @@ export default function PixelPortrait({ src }: { src: string }) {
   }, [size, ready]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: size, height: size, cursor: "crosshair", touchAction: "none", imageRendering: "pixelated" }}
-    />
+    <div className="relative" style={{ width: size, height: size }}>
+      <canvas
+        ref={canvasRef}
+        onClick={() => {
+          setIndex((i) => (i + 1) % sources.length);
+          dismissHint();
+        }}
+        style={{ width: size, height: size, cursor: "pointer", touchAction: "none", imageRendering: "pixelated" }}
+      />
+      <AnimatePresence>
+        {showHint && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.6 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2"
+          >
+            <motion.span
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+              className="text-4xl drop-shadow-[0_4px_12px_rgba(2,12,27,0.8)]"
+            >
+              👆
+            </motion.span>
+            <span className="rounded-full border border-pink/40 bg-navy-dark/90 px-3 py-1 text-xs uppercase tracking-[0.1em] text-pink">
+              Click
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

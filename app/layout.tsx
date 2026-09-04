@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NTR } from "next/font/google";
 import PageBackground from "./components/PageBackground";
+import KonamiEasterEgg from "./components/KonamiEasterEgg";
 import "./globals.css";
 
 const ntr = NTR({
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className="relative min-h-full text-slate-lightest">
         <PageBackground />
         {children}
+        <KonamiEasterEgg />
       </body>
     </html>
   );

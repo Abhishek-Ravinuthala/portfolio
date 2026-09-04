@@ -1,3 +1,5 @@
+import ProjectCard from "./ProjectCard";
+
 const projects = [
   {
     title: "Agentic API Routing System",
@@ -62,28 +64,16 @@ export default function PortfolioSections() {
 
       <section id="work" className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col gap-4 md:items-center md:flex-row md:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.1em] text-mint">Work</p>
-              <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
-                Selected projects
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-7 text-slate md:text-base">
-              These highlights show the scope, polish, and technical care I bring to
-              product and engineering work.
-            </p>
+          <div>
+            <p className="text-sm uppercase tracking-[0.1em] text-mint">Work</p>
+            <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-lightest md:text-5xl">
+              Projects
+            </h2>
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {projects.map((project) => (
-              <article
-                key={project.title}
-                className="rounded-3xl border border-navy-lightest bg-navy-light/40 p-6 shadow-[0_20px_80px_-55px_rgba(0,0,0,0.6)] transition duration-300 hover:border-mint/40 hover:bg-navy-light"
-              >
-                <h3 className="text-2xl font-semibold text-slate-lightest">{project.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-slate-light">{project.description}</p>
-              </article>
+              <ProjectCard key={project.title} title={project.title} description={project.description} />
             ))}
           </div>
         </div>
